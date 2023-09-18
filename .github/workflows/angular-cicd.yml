@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: ./coverage
+          path: ng-security/coverage
 
       - name: Build Angular App
         id: build-prod
