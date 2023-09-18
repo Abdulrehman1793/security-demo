@@ -30,11 +30,11 @@ jobs:
         # volumes:
         #   - postgres:/data/postgres
       # Set health checks to wait until postgres has started
-      options: >-
-        --health-cmd pg_isready
-        --health-interval 100s
-        --health-timeout 50s
-        --health-retries 5
+    #   options: >-
+    #     --health-cmd pg_isready
+    #     --health-interval 100s
+    #     --health-timeout 50s
+    #     --health-retries 5
 
     steps:
       - name: Checkout Repository
@@ -50,6 +50,12 @@ jobs:
       - name: Grant execute permission to mvnw
         run: chmod +x mvnw
         working-directory: ${{ env.PROJECT_DIRECTORY }}
+
+      - name: Debug Health Check
+        run: |
+          echo "Before health check"
+          docker exec -it postgres pg_isready -U abdulrehman -h localhost -p 5432
+          echo "After health check"
 
       - name: Build with Maven
         run: |
