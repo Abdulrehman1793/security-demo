@@ -19,14 +19,12 @@ jobs:
           node-version: 18
 
       - name: Change Directory to Angular Project
-        run: | 
-          cd ng-security
-          echo "working"
-          pwd
-          ls
+        run: cd ng-security
 
       - name: Install Dependencies
-        run: npm ci
+        run: |
+          ls
+          npm ci
 
       - name: Run Tests
         run: npm test
