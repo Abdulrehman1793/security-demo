@@ -70,7 +70,7 @@ jobs:
         id: deploy-to-production
         if: success()
         run: |
-          ls ng-security/dist/
+          ls dist/
           echo "Deployment to production would occur here"
 
       - name: Deploy Failure
