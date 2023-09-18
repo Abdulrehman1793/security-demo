@@ -37,10 +37,16 @@ jobs:
           cd ng-security
           npm ci
 
-      # - name: Run Tests
-      #   run: |
-      #     cd ng-security
-      #     npm test
+      - name: Run Tests
+        run: |
+          cd ng-security
+          ng test --watch=false --browsers=ChromeHeadless
+
+      - name: Archive Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: ./coverage
 
       - name: Build Angular App
         id: build-prod
