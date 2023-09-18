@@ -44,6 +44,10 @@ jobs:
           distribution: "temurin"
           cache: maven
 
+      - name: Grant execute permission to mvnw
+        run: chmod +x mvnw
+        working-directory: ${{ env.PROJECT_DIRECTORY }}
+
       - name: Build with Maven
         run: |
           cd ${{env.PROJECT_DIRECTORY}}
