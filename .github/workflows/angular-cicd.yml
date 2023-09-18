@@ -2,19 +2,19 @@ name: Angular CICD
 on:
   push:
     paths:
-      - 'ng-security/**'
-      - '.github/**/angular*.yml'
+      - "ng-security/**"
+      - ".github/**/angular*.yml"
     branches:
       - main
 
 env:
-  PROJECT_DIRECTORY: 'ng-security'
-  VERSION: 18
-      
+  PROJECT_DIRECTORY: "ng-security"
+  NODE_VERSION: 18
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.VERSION }}
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache Node Modules
         uses: actions/cache@v3
@@ -30,42 +30,42 @@ jobs:
           path: |
             ~/.npm
             ~/.npmrc
-            ./$PROJECT_DIRECTORY/node_modules
+            ./${{env.PROJECT_DIRECTORY}}/node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Change Directory to Angular Project
-        run: cd $PROJECT_DIRECTORY
+        run: cd ${{env.PROJECT_DIRECTORY}}
 
       - name: Install Dependencies
         run: |
-          cd $PROJECT_DIRECTORY
+          cd ${{env.PROJECT_DIRECTORY}}
           npm ci
 
       - name: Run Tests
         run: |
-          cd $PROJECT_DIRECTORY
+          cd ${{env.PROJECT_DIRECTORY}}
           npm run git-test
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v3
         with:
           name: test-results
-          path: $PROJECT_DIRECTORY/coverage
+          path: ${{env.PROJECT_DIRECTORY}}/coverage
 
       - name: Build Angular App
         id: build-prod
         run: |
-          cd $PROJECT_DIRECTORY
+          cd ${{env.PROJECT_DIRECTORY}}
           npm run build --prod
 
       - name: Archive Build Artifacts
         id: ng-dist
         uses: actions/upload-artifact@v3.1.3
         with:
-          name: $PROJECT_DIRECTORY
-          path: $PROJECT_DIRECTORY/dist/
+          name: ${{env.PROJECT_DIRECTORY}}
+          path: ${{env.PROJECT_DIRECTORY}}/dist/
 
   deploy:
     needs: build
@@ -75,14 +75,14 @@ jobs:
       - name: Download Build Artifacts
         uses: actions/download-artifact@v3
         with:
-          name: $PROJECT_DIRECTORY
+          name: ${{env.PROJECT_DIRECTORY}}
           path: dist/
 
       - name: Deploy to Production
         id: deploy-to-production
         if: success()
         run: |
-          ls dist/$PROJECT_DIRECTORY/
+          ls dist/${{env.PROJECT_DIRECTORY}}/
           echo "Deployment to production would occur here ./deploy.sh"
 
       - name: Deploy Failure
