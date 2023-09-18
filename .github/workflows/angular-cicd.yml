@@ -18,6 +18,17 @@ jobs:
         with:
           node-version: 18
 
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            ~/.npmrc
+            ./ng-security/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Change Directory to Angular Project
         run: cd ng-security
 
@@ -36,15 +47,14 @@ jobs:
         run: |
           cd ng-security
           npm run build --prod
-        
+
       - name: Archive Build Artifacts
         id: ng-dist
         uses: actions/upload-artifact@v3.1.3
         with:
           name: ng-security
           path: ng-security/dist/
-          
-     
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -54,7 +64,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ng-security
-          path: dist/ 
+          path: dist/
 
       - name: Deploy to Production
         id: deploy-to-production
@@ -62,10 +72,7 @@ jobs:
         run: |
           ls ng-security/dist/
           echo "Deployment to production would occur here"
-      
+
       - name: Deploy Failure
         if: failure() && steps.deploy-to-production.outcome == 'failure'
         run: echo "Deploy failed"
-
-
-      
