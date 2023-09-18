@@ -22,13 +22,13 @@ jobs:
       postgres:
         image: postgres:15.3-alpine3.18
         ports:
-          - "5432:5432"
+          - 5432:5432
         env:
           POSTGRES_USER: "abdulrehman"
           POSTGRES_PASSWORD: "password"
-          PGDATA: /data/postgres
-        volumes:
-          - postgres:/data/postgres
+        #   PGDATA: /data/postgres
+        # volumes:
+        #   - postgres:/data/postgres
       # Set health checks to wait until postgres has started
     #   options: >-
     #     --health-cmd pg_isready
