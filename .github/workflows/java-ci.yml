@@ -16,7 +16,7 @@ jobs:
 
     container:
       image: openjdk:17
-    #   options: --mount=type=cache,target=/root/.m2/repository
+      options: --mount=type=cache,target=/root/.m2/repository
 
     services:
       postgres:
@@ -47,4 +47,5 @@ jobs:
       - name: Build with Maven
         run: |
           cd ${{env.PROJECT_DIRECTORY}}
+          ls 
           mvn -B package --file pom.xml
