@@ -27,26 +27,43 @@ jobs:
           npm ci
 
       - name: Run Tests
-        run: npm test
+        run: |
+          cd ng-security
+          npm test
 
       - name: Build Angular App
         id: build-prod
-        run: npm run build --prod
+        run: |
+          cd ng-security
+          npm run build --prod
         
       - name: Archive Build Artifacts
         id: ng-dist
         uses: actions/upload-artifact@v3.1.3
         with:
           name: angular-build
-          path: dist/
+          path: ng-security/dist/
           
+     
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: angular-build
+          path: dist/ 
+
       - name: Deploy to Production
         id: deploy-to-production
-        if: steps.build-prod.outcome == 'success'
+        if: success()
         run: echo "Deployment to production would occur here"
-        
+      
       - name: Deploy Failure
         if: failure() && steps.deploy-to-production.outcome == 'failure'
         run: echo "Deploy failed"
+
 
       
