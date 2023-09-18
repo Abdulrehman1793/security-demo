@@ -4,7 +4,7 @@ services:
     image: postgres:15.3-alpine3.18
     environment:
       POSTGRES_USER: abdulrehman
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: Abdulrehman#1
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
