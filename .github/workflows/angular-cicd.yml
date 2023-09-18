@@ -23,6 +23,7 @@ jobs:
           cd ng-security
           echo "working"
           pwd
+          ls
 
       - name: Install Dependencies
         run: npm ci
