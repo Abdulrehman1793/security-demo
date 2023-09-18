@@ -3,7 +3,7 @@ on:
   push:
     paths:
       - 'ng-security/**'
-      - '.github/**/angular*.yaml'
+      - '.github/**/angular*.yml'
     branches:
       - main
 jobs:
