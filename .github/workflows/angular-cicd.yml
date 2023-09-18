@@ -78,7 +78,7 @@ jobs:
         if: success()
         run: |
           ls dist/ng-security/
-          echo "Deployment to production would occur here"
+          echo "Deployment to production would occur here ./deploy.sh"
 
       - name: Deploy Failure
         if: failure() && steps.deploy-to-production.outcome == 'failure'
