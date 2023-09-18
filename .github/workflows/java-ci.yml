@@ -52,12 +52,6 @@ jobs:
         run: chmod +x mvnw
         working-directory: ${{ env.PROJECT_DIRECTORY }}
 
-      - name: Debug Health Check
-        run: |
-          echo "Before health check"
-          docker exec -it postgres pg_isready -U abdulrehman -h localhost -p 5432
-          echo "After health check"
-
       - name: Build with Maven
         run: |
           cd ${{env.PROJECT_DIRECTORY}}
