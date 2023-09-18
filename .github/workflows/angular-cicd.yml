@@ -41,7 +41,7 @@ jobs:
         id: ng-dist
         uses: actions/upload-artifact@v3.1.3
         with:
-          name: angular-build
+          name: ng-security
           path: ng-security/dist/
           
      
@@ -53,13 +53,15 @@ jobs:
       - name: Download Build Artifacts
         uses: actions/download-artifact@v3
         with:
-          name: angular-build
+          name: ng-security
           path: dist/ 
 
       - name: Deploy to Production
         id: deploy-to-production
         if: success()
-        run: echo "Deployment to production would occur here"
+        run: |
+          ls ng-security/dist/
+          echo "Deployment to production would occur here"
       
       - name: Deploy Failure
         if: failure() && steps.deploy-to-production.outcome == 'failure'
