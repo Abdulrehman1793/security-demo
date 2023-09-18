@@ -40,7 +40,7 @@ jobs:
       - name: Run Tests
         run: |
           cd ng-security
-          ng test --watch=false --browsers=ChromeHeadless
+          npm run git-test
 
       - name: Archive Test Results
         uses: actions/upload-artifact@v3
