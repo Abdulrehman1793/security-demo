@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: 18
 
+      - name: Change Directory to Angular Project
+        run: cd ng-security
+
       - name: Install Dependencies
         run: npm ci
 
