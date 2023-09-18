@@ -48,4 +48,4 @@ jobs:
         run: |
           cd ${{env.PROJECT_DIRECTORY}}
           ls 
-          mvn -B package --file pom.xml
+          ./mvnw -B package --file pom.xml
