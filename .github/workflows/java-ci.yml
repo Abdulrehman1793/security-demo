@@ -26,6 +26,9 @@ jobs:
         env:
           POSTGRES_USER: "abdulrehman"
           POSTGRES_PASSWORD: "password"
+          PGDATA: /data/postgres
+        volumes:
+          - postgres:/data/postgres
       # Set health checks to wait until postgres has started
     #   options: >-
     #     --health-cmd pg_isready
