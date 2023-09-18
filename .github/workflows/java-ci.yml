@@ -25,7 +25,7 @@ jobs:
           - 5432:5432
         env:
           POSTGRES_USER: "abdulrehman"
-          POSTGRES_PASSWORD: "password"
+          POSTGRES_PASSWORD: "Abdulrehman#1"
           POSTGRES_DB: mma
         #   PGDATA: /data/postgres
         # volumes:
