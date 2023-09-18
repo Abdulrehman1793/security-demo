@@ -1,8 +1,8 @@
 name: Angular CICD
 on:
   push:
-    # paths:
-    #   - 'ng-security/**'
+    paths:
+      - 'ng-security/**'
     branches:
       - main
 jobs:
