@@ -16,7 +16,7 @@ jobs:
 
     container:
       image: openjdk:17
-      options: --mount=type=cache,target=/root/.m2/repository
+    #   options: --mount=type=cache,target=/root/.m2/repository
 
     services:
       postgres:
