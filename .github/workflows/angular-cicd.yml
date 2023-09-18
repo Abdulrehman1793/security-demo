@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: $VERSION
+          node-version: ${{ env.VERSION }}
 
       - name: Cache Node Modules
         uses: actions/cache@v3
